@@ -43,7 +43,15 @@ pipeline {
                     - Data build: $buildDate
                     - SHA1 git commit: ${env.GIT_COMMIT}"""
             }
-        }        
+        }
+        stage('maven compile') {
+            when { changeset "EsercizioFinale/*"}
+            steps {
+                withMaven(jdk: 'JDK 14', maven: 'Maven 3.6.3') {
+                    bat 'mvn -f ./sts/devops-project/pom.xml test'
+                }
+            }
+        }                
         stage("Clean WS") {
             steps {
                 cleanWs()
