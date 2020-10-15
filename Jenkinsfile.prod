@@ -58,7 +58,7 @@ pipeline {
             // when { changeset "EsercizioFinale/*"}
             steps {
                 withMaven(jdk: 'JDK 14', maven: 'Maven 3.6.3') {
-                    bat 'mvn -f ./sts/devops-project/pom.xml test'
+                    bat 'mvn -f ./EsercizioFinale/pom.xml test'
                 }
             }
         }
@@ -66,7 +66,7 @@ pipeline {
             // when { changeset "EsercizioFinale/*"}
             steps {
                 withMaven(jdk: 'JDK 14', maven: 'Maven 3.6.3') {
-                    bat 'mvn -f ./sts/devops-project/pom.xml package'
+                    bat 'mvn -f ./EsercizioFinale/pom.xml package'
                 }
             }
         }
