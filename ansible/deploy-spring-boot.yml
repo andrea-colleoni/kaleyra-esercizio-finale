@@ -1,0 +1,7 @@
+# https://github.com/remyma/ansible-springboot
+- hosts: all
+  vars:
+    springboot_application_name: spring-boot-sample
+    springboot_src: tests/spring-boot-sample.jar
+  roles:
+    - role: ansible-springboot

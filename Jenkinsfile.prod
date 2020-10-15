@@ -61,7 +61,28 @@ pipeline {
                     bat 'mvn -f ./sts/devops-project/pom.xml test'
                 }
             }
-        }                
+        }
+        stage('publish') {
+            when { changeset "EsercizioFinale/*"}
+            steps {
+                withMaven(jdk: 'JDK 14', maven: 'Maven 3.6.3') {
+                    bat 'mvn -f ./sts/devops-project/pom.xml package'
+                }
+            }
+        }
+        stage('deploy') {
+            when { changeset "sts/*"} 
+            steps {
+                echo 'deploy'
+                ansiblePlaybook colorized: true, 
+                    credentialsId: 'andre-private-key', 
+                    installation: 'ansible-2.9', 
+                    inventory: '/ansible/inventory', 
+                    limit: 'prod', 
+                    playbook: '/ansible/deploy-spring-boot.yml', 
+                    sudo: true
+            }
+        }                        
         stage("Clean WS") {
             steps {
                 cleanWs()
