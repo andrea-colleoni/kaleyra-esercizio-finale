@@ -14,7 +14,7 @@ pipeline {
                 echo "Project: ${currentBuild.projectName}"
                 echo "Build #: ${currentBuild.number}"
             }
-        }        
+        }               
         stage("git checkout") {
             steps {
                 script {

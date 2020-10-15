@@ -14,7 +14,14 @@ pipeline {
                 echo "Project: ${currentBuild.projectName}"
                 echo "Build #: ${currentBuild.number}"
             }
-        }        
+        }
+        stage ('Approve Operation') {
+            steps {
+                timeout(time: 1, unit: 'DAYS') {
+                    input message: 'Do you want to proceed to deploy?'
+                }
+            }
+        }              
         stage("git checkout") {
             steps {
                 script {
