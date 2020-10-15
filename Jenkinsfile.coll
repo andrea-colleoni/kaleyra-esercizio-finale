@@ -54,7 +54,15 @@ pipeline {
                     bat 'mvn -f ./sts/devops-project/pom.xml test'
                 }
             }
-        }                
+        }
+        stage('publish') {
+            when { changeset "EsercizioFinale/*"}
+            steps {
+                withMaven(jdk: 'JDK 14', maven: 'Maven 3.6.3') {
+                    bat 'mvn -f ./sts/devops-project/pom.xml package'
+                }
+            }
+        }                     
         stage("Clean WS") {
             steps {
                 cleanWs()
