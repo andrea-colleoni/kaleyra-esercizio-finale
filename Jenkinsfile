@@ -1,6 +1,9 @@
 def getBuildDate() {
     return new Date().format('yyyy-MM-dd HH:mm:ss')
 }
+def getBuildEnv() {
+    return "collaudo"
+}
 
 pipeline {
     agent any
@@ -18,7 +21,7 @@ pipeline {
                     // Checkout the repository and save the resulting metadata
                     def scmVars = checkout(
                         [
-                            $class: 'GitSCM', branches: [[name: '*/main']], 
+                            $class: 'GitSCM', branches: [[name: "*/$buildEnv"]], 
                             doGenerateSubmoduleConfigurations: false, 
                             extensions: [], 
                             submoduleCfg: [], 
