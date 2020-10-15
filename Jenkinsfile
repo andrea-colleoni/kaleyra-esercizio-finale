@@ -35,6 +35,15 @@ pipeline {
                 bat 'dir'
             }
         }
+        stage("write build info") {
+            steps {
+                writeFile file: 'build-info.md', text: """# Informazioni build
+
+                    - Progetto: ${currentBuild.projectName}-${currentBuild.number}
+                    - Data build: $buildDate
+                    - SHA1 git commit: ${env.GIT_COMMIT}"""
+            }
+        }        
         stage("Clean WS") {
             steps {
                 cleanWs()
